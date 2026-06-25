@@ -58,7 +58,7 @@ Key v5/v6 additions on top of v3:
 
 # Technical SEO — v6 only
 
-v6 adds site-wide technical SEO:
+The full technical checklist lives in `on-page-seo.md` → **TECHNICAL SEO** section (crawl/index, sitemap, robots, rendering, Core Web Vitals, HTTPS, schema validation). That file is the single source for on-page **and** technical SEO. v6 implements it via:
 - `app/sitemap.ts` — auto-generated sitemap covering all routes
 - `app/robots.ts` — allows all crawlers, points to sitemap
 - Canonical URLs on every page (via `metadata.alternates.canonical`)
@@ -67,6 +67,17 @@ v6 adds site-wide technical SEO:
 - Semantic HTML5 (`<header>`, `<nav>`, `<main>`, `<article>`, `<footer>`)
 - Static pre-rendering — `output: 'export'`
 - Mobile viewport — set in `app/layout.tsx`
+
+---
+
+# Off-page SEO
+
+Off-page work (backlinks + Google's own tools) is documented in `off-page-seo.md`. It's mostly manual account/relationship work; Claude assists with the code-side and the writing:
+- Inject the **Search Console** verification tag and **Google Analytics (GA4)** tag into `app/layout.tsx`
+- Draft guest posts, HARO/digital-PR responses, and outreach emails in voice
+- Find broken-link targets and build prospect lists
+
+Read `off-page-seo.md` before doing any backlink, Google Business Profile, Search Console, or Analytics task.
 
 ---
 

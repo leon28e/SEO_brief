@@ -59,7 +59,8 @@ Every content-generation task reads these files first. See `CLAUDE.md` at the ro
 
 ## SEO reference files
 
-- `on-page-seo.md` — 80+ item on-page SEO checklist applied to v5
+- `on-page-seo.md` — on-page **+ technical** SEO checklist (single per-page / per-build reference; applied to v5 / v6)
+- `off-page-seo.md` — off-page reference guide: backlinks + Google Business Profile, Search Console, Analytics
 - `slideshow/onpage-seo-checklist.html` — visual reference for the checklist
 - `slideshow/technical-seo.html` — visual reference for technical SEO
 

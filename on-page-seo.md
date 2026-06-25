@@ -1,8 +1,13 @@
-# On-Page SEO Checklist
+# On-Page & Technical SEO Checklist
 
-Canonical on-page SEO reference for this project. Every blog post, service page, and static page must satisfy every applicable item below.
+Canonical SEO reference for this project. It covers two layers:
 
-**Every page-generation skill (`write-blog-post.md`, `write-service-page.md`, etc.) must read this file first. Every page shipped must pass every applicable item.**
+- **On-page SEO** — the content and markup of each individual page (everything from HEAD/METADATA down to LONG-FORM CONTENT below).
+- **Technical SEO** — site-wide health: how the site is built, crawled, rendered and how fast it loads (the `TECHNICAL SEO` section near the bottom).
+
+Every blog post, service page, and static page must satisfy every applicable **on-page** item. Every build must satisfy the **TECHNICAL SEO** section.
+
+**Every page-generation skill (e.g. the `/blog` and `/service` skills) must read this file first. Every page shipped must pass every applicable item.**
 
 ---
 
@@ -139,6 +144,37 @@ Canonical on-page SEO reference for this project. Every blog post, service page,
 - [ ] **Jump links** for each H2 section
 - [ ] **Back-to-top** button
 
+## TECHNICAL SEO (site-wide — is the site itself healthy)
+
+The on-page items above are per-page. These are checked once for the whole site, on every build. This is what `/v6` demonstrates.
+
+### Crawlability & indexing
+- [ ] **robots.txt** present, allows crawlers, points to the sitemap (`app/robots.ts`)
+- [ ] **XML sitemap** auto-generated, lists every indexable route (`app/sitemap.ts`)
+- [ ] **No important page blocked** by robots.txt or a stray `noindex`
+- [ ] **Canonical URL** on every page (no duplicate-content splits)
+- [ ] **No orphan pages** — every page reachable through internal links
+- [ ] **Correct status codes** — real 404s (no soft-404s), no redirect chains
+- [ ] **HTTPS everywhere** — HTTP → HTTPS redirect, valid certificate, no mixed content
+- [ ] **One domain version** (www vs non-www) enforced via redirect + canonical
+
+### Rendering (Google penalises in this order: CSR worst → SSR → SSG best)
+- [ ] **Static pre-rendering** (SSG, `output: 'export'`) — content visible in view-source, not injected by JS
+- [ ] **No client-only content** that a crawler can't see without running scripts
+- [ ] **Dynamic routes** (`[slug]`) implement `generateStaticParams`
+
+### Core Web Vitals / page speed (Lighthouse)
+- [ ] **LCP < 2.5 s**, **INP < 200 ms**, **CLS < 0.1**
+- [ ] **Images** WebP, compressed, explicit `width`/`height` (no layout shift), lazy-loaded below the fold
+- [ ] **No render-blocking resources**; fonts preloaded with `font-display: swap`
+- [ ] **Lighthouse** Performance / SEO / Best-Practices / Accessibility all green
+- **Workflow:** run Lighthouse → paste the report into Claude → fix → re-run. (This is the v6 loop from the notes.)
+
+### Mobile & structured data
+- [ ] **Mobile-friendly / responsive**, viewport meta set — Google indexes mobile-first
+- [ ] **All JSON-LD validates** in Google's Rich Results Test — zero errors
+- [ ] **OG / Twitter images resolve** at absolute URLs (not relative paths)
+
 ---
 
 ## How to use this file
@@ -147,4 +183,6 @@ Canonical on-page SEO reference for this project. Every blog post, service page,
 2. Every page must satisfy every applicable item — no exceptions.
 3. **Conversion Elements** apply to service pages only.
 4. **Long-Form Content** items apply to any post 1500+ words.
-5. Run `scripts/verify-seo.ts` against any built page to check compliance — it should fail the build if any required item is missing.
+5. **TECHNICAL SEO** is site-wide, not per-page — check it on every build (it's what `/v6` demonstrates).
+6. Off-page work (backlinks + Google tools) is **not** in this file — see `off-page-seo.md`.
+7. Run `scripts/verify-seo.ts` against any built page to check compliance — it should fail the build if any required item is missing.
